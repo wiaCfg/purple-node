@@ -1,0 +1,1 @@
+module.exports = (firstNum, secondNum) => firstNum * secondNum; 
