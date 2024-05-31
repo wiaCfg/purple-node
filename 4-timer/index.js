@@ -15,7 +15,7 @@ const interval = calculateInterval(hours, minites, seconds);
 if(interval) {
     console.log('Alarm set successfully!');
     setTimeout(() => {
-        
+        console.log('Alarm!');
     }, interval);
 } else {
     console.log('Timeout must be at least 1 second!');
