@@ -4,6 +4,8 @@ const OS = require('os');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
+console.log(OS.cpus().length)
+
 const performanceObserver = new perf_hooks.PerformanceObserver((items, observer) => {
 	items.getEntries().forEach((entry) => {
         if (entry.entryType === "mark") {
