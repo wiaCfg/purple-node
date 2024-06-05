@@ -1,10 +1,17 @@
+//node index.js 0h 0m 1s
 const notifier = require('node-notifier');
 const path = require('path');
 
-
-const hours = parseInt(process.argv[2]);
-const minites = parseInt(process.argv[3]);
-const seconds = parseInt(process.argv[4]);
+const getIntarval = () => {
+  let h, m, s;
+  const [executer, file, ...params] = process.argv;
+  params.forEach(param => {
+    if(param.includes('h')) h = parseInt(param);
+    if(param.includes('m')) m = parseInt(param);
+    if(param.includes('s')) s = parseInt(param);
+  });
+  return {h, m, s};
+}
 
 function sendNotification(message) {
     notifier.notify({
@@ -14,7 +21,6 @@ function sendNotification(message) {
       sound: true,
       wait: false
     }, function (err, response, metadata) {
-        console.log(err, response, metadata);
       if (err) {
         console.error('Notification Error:', err);
       } else {
@@ -23,15 +29,16 @@ function sendNotification(message) {
     });
 }
 
-const calculateInterval = (hours, minites, seconds) => {
+const calculateInterval = () => {
     let interval = 0;
-    if(hours) interval += hours * 60 * 60 * 1000;
-    if(minites) interval += minites * 60 * 1000;
-    if(seconds) interval += seconds * 1000;
-    return interval;
+    const { h, m, s } = getIntarval();
+    if(h) interval += h * 60 * 60;
+    if(m) interval += m * 60;
+    if(s) interval += s;
+    return interval * 1000;
 }
 
-const interval = calculateInterval(hours, minites, seconds);
+const interval = calculateInterval();
 
 if(interval) {
     console.log('Alarm set successfully!');
