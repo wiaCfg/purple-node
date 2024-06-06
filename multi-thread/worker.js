@@ -6,4 +6,6 @@ workerData.forEach((val) => {
     if(!(val % 3)) cnt += 1;
 });
 
+
+
 parentPort.postMessage(cnt);
