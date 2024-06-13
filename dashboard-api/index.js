@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { weatherRouter } from './src/weather/weather.router.js';
+import { weatherRouter } from './src/routers/weather.router.js';
 
 const PORT = 3030;
 const app = express();
