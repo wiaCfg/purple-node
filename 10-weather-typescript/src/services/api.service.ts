@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getKeyValue, TOKEN_DICTIONARY } from './storage.service';
+import { IWeather } from '../interfaces/api.interface';
 
 const getIcon = (icon: string): string => {
 	switch (icon.slice(0, -1)) {
@@ -26,7 +27,7 @@ const getIcon = (icon: string): string => {
 	}
 };
 
-const getWeather = async (city: string) => {
+const getWeather = async (city: string): Promise<IWeather> => {
 	const token = process.env.TOKEN ?? await getKeyValue(TOKEN_DICTIONARY.token);
 	if (!token) {
 		throw new Error('Не задан ключ API, задайте его через команду -t [API_KEY]');

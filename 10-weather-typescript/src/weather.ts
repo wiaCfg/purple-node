@@ -3,10 +3,10 @@ import { getArgs } from './helpers/args';
 import { getWeather, getIcon } from './services/api.service';
 import { printHelp, printSuccess, printError, printWeather } from './services/log.service';
 import { saveKeyValue, TOKEN_DICTIONARY, getKeyValue } from './services/storage.service';
-import { IWeather } from './interfaces/api.interface';
 
 
-const saveToken = async (token: string) => {
+const saveToken = async (token: string | boolean) => {
+  if (typeof token === 'boolean') return;
   if (!token.length) {
     printError('Не передан token');
     return;
@@ -19,7 +19,8 @@ const saveToken = async (token: string) => {
   }
 }
 
-const saveCity = async (city: string) => {
+const saveCity = async (city: string | boolean) => {
+  if (typeof city === 'boolean') return;
   if (!city.length) {
     printError('Не передан город');
     return;
@@ -32,11 +33,11 @@ const saveCity = async (city: string) => {
   }
 }
 
-const getForcast = async () => {
+const printForcast = async () => {
   try {
     const city = process.env.CITY ?? await getKeyValue(TOKEN_DICTIONARY.city);
 	if(city) {
-		const weather: IWeather = await getWeather(city);
+		const weather = await getWeather(city);
 		const icon: string = getIcon(weather.weather[0].icon);
 		printWeather(weather, icon);
 	} else {
@@ -64,7 +65,7 @@ const initCLI = () => {
   if (args.t) {
     return saveToken(args.t);
   }
-  return getForcast();
+  return printForcast();
 };
 
 initCLI();

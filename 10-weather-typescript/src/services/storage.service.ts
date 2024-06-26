@@ -9,9 +9,11 @@ const TOKEN_DICTIONARY = {
 	city: 'city'
 };
 
-interface Data {
-  [key: string]: string;
-}
+// interface Data {
+//   [key: string]: string;
+// }
+
+type Data = Record<string, string>;
 
 const saveKeyValue = async (key: string, value: string): Promise<void> => {
   let data: Data = {};
@@ -29,7 +31,6 @@ const getKeyValue = async (key: string): Promise<string | undefined> => {
     const data = JSON.parse(file) as Data;
     return data[key];
   }
-  return undefined;
 };
 
 const isExist = async (path: string): Promise<boolean> => {

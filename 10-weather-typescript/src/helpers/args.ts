@@ -1,5 +1,5 @@
 const getArgs = (args: string[]) => {
-	const res: any = {};
+	const res: Record<string, string | boolean> = {};
 	const [executer, file, ...rest] = args;
 	rest.forEach((value, index, array) => {
 		if (value.charAt(0) == '-') {
