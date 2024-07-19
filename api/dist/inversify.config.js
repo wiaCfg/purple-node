@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.myContainer = void 0;
+var inversify_1 = require("inversify");
+var types_1 = require("./types");
+var app_1 = require("./app");
+var tracker_controller_1 = require("./tracker/tracker.controller");
+var tracker_service_1 = require("./tracker/tracker.service");
+var logger_service_1 = __importDefault(require("./logger/logger.service"));
+var tracker_routes_1 = require("./tracker/tracker.routes");
+var container = new inversify_1.Container();
+exports.myContainer = container;
+container.bind(types_1.TYPES.Application).to(app_1.Application);
+container.bind(types_1.TYPES.TrackerController).to(tracker_controller_1.TrackerController);
+container.bind(types_1.TYPES.TrackerService).to(tracker_service_1.TrackerService);
+container.bind(types_1.TYPES.TrackerRoutes).to(tracker_routes_1.TrackerRoutes);
+container.bind(types_1.TYPES.ILogger).to(logger_service_1.default);
